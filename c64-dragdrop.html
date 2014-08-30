@@ -2,11 +2,22 @@
 <link rel="import" href="../c64-dragdrop-list/c64-dragdrop-list.html">
 
 <!--
-Element providing solution to no problem in particular.
+Drag and drop files component.
+
+`<c64-dragdrop>` is a container component that adds event listeners
+for dragging and dropping files into web pages.
+
+Additional components are needed to process the dropped files. Included
+in `<c64-dragdrop>` dependencies is `<c64-dragdrop-list>`
 
 ##### Example
 
-    <c64-dragdrop></c64-dragdrop>
+    <c64-dragdrop>
+        <div class="container">
+            <h1>Drag files anywhere</h1>
+        <c64-dragdrop-list></c64-dragdrop-list>
+        </div>
+    </c64-dragdrop>
 
 @element c64-dragdrop
 @blurb Element providing solution to no problem in particular.
