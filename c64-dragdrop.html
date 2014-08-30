@@ -1,0 +1,114 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../c64-dragdrop-list/c64-dragdrop-list.html">
+
+<!--
+Element providing solution to no problem in particular.
+
+##### Example
+
+    <c64-dragdrop></c64-dragdrop>
+
+@element c64-dragdrop
+@blurb Element providing solution to no problem in particular.
+@status alpha
+@homepage http://nzjames.github.io/c64-dragdrop
+-->
+<polymer-element name="c64-dragdrop" on-c64-dragdrop-drop="{{handleDrop}}" attributes="files">
+  <template>
+    <link rel="stylesheet" href="c64-dragdrop.css">
+    <content></content>
+
+    <!-- Mask to help the user drop files -->
+    <div id="dropZone" class="dd-target">
+        <div class="dd-target-inner">Drop Anywhere</div>
+    </div>
+
+  </template>
+  <script>
+      Polymer('c64-dragdrop',{
+
+        /**
+         * Init the files collection
+         */
+        created: function () {
+            this.files = [];
+        },
+
+        ready: function () {
+            var me = this;
+
+            // TODO get a handle to the dropZone div above and add a drop listener
+            this.$.dropZone.addEventListener('drop', function(event, detail, sender) {
+                me.handleDrop(event,detail,sender);
+            });
+
+            this.$.dropZone.addEventListener('dragenter', function (event) {
+                event.preventDefault();
+                this.classList.add('dd-target-active');
+            });
+
+            /**
+             * Remove the mask if we have dragged out of the page
+             */
+            this.$.dropZone.addEventListener('dragleave', function (event) {
+                event.preventDefault();
+                if (event.toElement.classList.contains('dd-target-inner')) {
+                    return;
+                }
+                this.classList.remove('dd-target-active');
+
+            });
+
+            this.addEventListener('dragenter', function (event) {
+
+                event.preventDefault();
+                this.$.dropZone.classList.add('dd-target-active');
+            });
+            this.addEventListener('dragover', function (event) {
+                event.preventDefault();
+            });
+        },
+
+        handleDrop: function(event, detail, sender) {
+            var me = this;
+            event.preventDefault();
+
+            // Remove mask
+            this.$.dropZone.classList.remove('dd-target-active');
+
+            var dt    = event.dataTransfer;
+            var files = dt.files;
+
+            var remainingFiles = files.length;
+
+            for (var i=0; i<files.length; i++) {
+                var file = files[i];
+                var reader = new FileReader();
+                me.files[i] = { 'file': files[i]} ;
+
+                reader.addEventListener('loadend', (function(i) {
+                   return function (event, file) {
+                    var bin = this.result; 
+
+                    me.files[i]['bin'] = this.result;
+
+                    remainingFiles  -= 1;
+
+                    me.fire('c64-dragdrop-file-loaded', me.files[i]);
+
+                    me.querySelector('c64-dragdrop-list').fire('file-loaded', me.files[i]);
+
+                    if (remainingFiles === 0) {
+                        me.fire('c64-dragdrop-fileschange');
+                    }
+                }
+                })(i));
+
+                reader.readAsDataURL(file);
+                me.fire('c64-dragdrop-file-loading', me.files[i]);
+            }
+        }
+
+      });
+  </script>
+</polymer-element>
