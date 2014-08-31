@@ -8,6 +8,7 @@
   ],
   "main": "c64-dragdrop.html",
   "dependencies": {
+    "c64-dragdrop-list": "git@github.com:nzjames/c64-dragdrop-list.git",
     "polymer": "Polymer/polymer#~0.4.0"
   }
 }
