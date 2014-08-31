@@ -1,0 +1,23 @@
+{
+  "name": "c64-dragdrop-list",
+  "version": "0.0.3",
+  "keywords": [
+    "seed",
+    "polymer",
+    "web-components"
+  ],
+  "main": "c64-dragdrop-list.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.4.0"
+  },
+  "homepage": "https://github.com/nzjames/c64-dragdrop-list",
+  "_release": "0.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.3",
+    "commit": "32586751f1814fbaf849cbf54e4659850cc66af3"
+  },
+  "_source": "git@github.com:nzjames/c64-dragdrop-list.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:nzjames/c64-dragdrop-list.git"
+}

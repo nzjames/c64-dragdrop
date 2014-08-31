@@ -1,0 +1,24 @@
+.dd-target {
+    display: none;
+}
+
+.dd-target-active {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(200,200,200,0.8);
+    min-width: 100%;
+    min-height: 100%;
+    padding: 5%
+}
+.dd-target-active .dd-target-inner {
+    height: 50%;
+    border-radius: 10px;
+    border: 10px dashed #999;
+    margin: auto;
+    text-align: center;
+    font-family: monospace;
+    font-size: 48px;
+    color: #999;
+}
